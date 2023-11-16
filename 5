@@ -1,0 +1,28 @@
+from collections import defaultdict
+
+# Читаємо вміст файлу
+file_name = 'шлях_до_вашого_файлу.txt'  # Замініть це на шлях до вашого файлу
+word_counts = defaultdict(int)
+
+try:
+    with open(file_name, 'r', encoding='utf-8') as file:
+        content = file.read()
+        # Розділяємо текст на слова, використовуючи пробіли та розділові знаки
+        words = content.split()
+
+        # Лічильник кількості слів
+        for word in words:
+            # Видаляємо спеціальні символи, щоб отримати чисті слова
+            word = word.strip('.,!?()-')
+            # Збільшуємо кількість зустрічей слова
+            if word:
+                word_counts[word.lower()] += 1
+
+        # Виводимо список слів та їх кількість появ
+        print("Список слів та кількість їх появ у тексті:")
+        for word, count in word_counts.items():
+            print(f"{word}: {count}")
+except FileNotFoundError:
+    print(f"Файл {file_name} не знайдено.")
+except Exception as e:
+    print(f"Виникла помилка: {e}")
